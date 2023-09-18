@@ -27,9 +27,13 @@
     <None Remove="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
     <None Remove="Models\" />
     <None Remove="DBContext\" />
+    <None Remove="Controllers\" />
+    <None Remove="Managers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="DBContext\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Managers\" />
   </ItemGroup>
 </Project>
