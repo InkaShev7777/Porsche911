@@ -1,17 +1,24 @@
 package com.example.porschecatalog;
 
+import static java.security.AccessController.getContext;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputEditText;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,6 +26,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -26,7 +34,6 @@ import java.net.URL;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -37,8 +44,10 @@ import javax.net.ssl.X509TrustManager;
 
 public class MainActivity extends AppCompatActivity {
     private ListView porscheListView;
-    private ArrayAdapter<String> adapter;
+//    private ArrayAdapter<ImageView> adapter;
     private ArrayList<String> porsheList;
+    private ArrayList<String> images;
+    PorscheAdapter porscheAdapter;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +60,12 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        Bundle arguments = getIntent().getExtras();
         porscheListView = findViewById(R.id.porschelist);
         porsheList = new ArrayList<>();
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, porsheList);
-        porscheListView.setAdapter(adapter);
+        images= new ArrayList<>();
+         porscheAdapter = new PorscheAdapter(this,porsheList,images);
+//        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, images);
+        porscheListView.setAdapter(porscheAdapter);
 
         new HttpGetRequest().execute("https://10.0.2.2:7067/porsche/GetPorsche","GET");
     }
@@ -96,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }
         }
+        @SuppressLint("WrongThread")
         @Override
         protected void onPostExecute(String response) {
             if (response != null) {
@@ -104,11 +115,13 @@ public class MainActivity extends AppCompatActivity {
                     porsheList.clear();
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String title = jsonObject.getString("model");
-//                        String body = jsonObject.getString("body");
-                        porsheList.add(title);
+                        String model = jsonObject.getString("model");
+                        String url = jsonObject.getString("image");
+
+                        porsheList.add(model);
+                        images.add(url);
                     }
-                    adapter.notifyDataSetChanged();
+                    porscheAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
