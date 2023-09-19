@@ -16,6 +16,9 @@
         android:theme="@style/Theme.PorscheCatalog"
         tools:targetApi="31">
         <activity
+            android:name=".AllInfoPorsche"
+            android:exported="false" />
+        <activity
             android:name=".Card"
             android:exported="false" />
         <activity

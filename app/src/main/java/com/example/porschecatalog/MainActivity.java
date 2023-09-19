@@ -13,6 +13,7 @@ import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 //    private ArrayAdapter<ImageView> adapter;
     private ArrayList<String> porsheList;
     private ArrayList<String> images;
+    private ArrayList<String> AllInfoPorsche;
     PorscheAdapter porscheAdapter;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -61,10 +63,21 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         porscheListView = findViewById(R.id.porschelist);
+        porscheListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //
+                //  position card in listview -> send data in new window!
+                //
+//                Log.i("test","Info: " + AllInfoPorsche.get(position));
+            }
+        });
+
+
         porsheList = new ArrayList<>();
         images= new ArrayList<>();
-         porscheAdapter = new PorscheAdapter(this,porsheList,images);
-//        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, images);
+        AllInfoPorsche = new ArrayList<>();
+        porscheAdapter = new PorscheAdapter(this,porsheList,images);
         porscheListView.setAdapter(porscheAdapter);
 
         new HttpGetRequest().execute("https://10.0.2.2:7067/porsche/GetPorsche","GET");
@@ -116,10 +129,13 @@ public class MainActivity extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         String model = jsonObject.getString("model");
+                        String year = jsonObject.getString("years");
                         String url = jsonObject.getString("image");
+                        String desc = jsonObject.getString("description");
 
                         porsheList.add(model);
                         images.add(url);
+                        AllInfoPorsche.add(model + " " + year + " " + desc + " " + url);
                     }
                     porscheAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
