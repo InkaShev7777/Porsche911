@@ -5,6 +5,7 @@ import static java.security.AccessController.getContext;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -66,14 +67,11 @@ public class MainActivity extends AppCompatActivity {
         porscheListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //
-                //  position card in listview -> send data in new window!
-                //
-//                Log.i("test","Info: " + AllInfoPorsche.get(position));
+                Intent i = new Intent(MainActivity.this,com.example.porschecatalog.AllInfoPorsche.class);
+                i.putExtra("FullInfo",AllInfoPorsche.get(position));
+                MainActivity.this.startActivity(i);
             }
         });
-
-
         porsheList = new ArrayList<>();
         images= new ArrayList<>();
         AllInfoPorsche = new ArrayList<>();
@@ -135,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
                         porsheList.add(model);
                         images.add(url);
-                        AllInfoPorsche.add(model + " " + year + " " + desc + " " + url);
+                        AllInfoPorsche.add(model + "%" + year + "%" + desc + "%" + url);
                     }
                     porscheAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
