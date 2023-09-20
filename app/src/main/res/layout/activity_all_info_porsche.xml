@@ -19,8 +19,11 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:background="#090909"
+            android:backgroundTint="#272626"
+            android:orientation="vertical"
+            tools:ignore="MissingClass">
 
             <ImageView
                 android:id="@+id/imageViewImage"
@@ -48,10 +51,39 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="27dp"
                 android:layout_marginTop="12dp"
-                android:textColor="#FFFFFF"
                 android:layout_marginEnd="18dp"
                 android:text="TextView"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
+<!--            <VideoView-->
+<!--                android:id="@+id/video"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content" />-->
+<!--            <VideoView-->
+<!--                android:id="@+id/video"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                />-->
+
+<!--            <WebView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--                android:id="@+id/web"-->
+<!--                android:layout_width="match_parent" android:layout_height="180dp">-->
+<!--            </WebView>-->
+            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                android:id="@+id/youtube_player_view"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:layout_marginTop="50dp"
+
+                app:videoId="cst0vnpS29Q"
+                app:autoPlay="false" />
+<!--            <WebView-->
+<!--                android:id="@+id/web"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="300dp"-->
+<!--                android:layout_marginTop="50dp"-->
+<!--                />-->
+
         </LinearLayout>
     </ScrollView>
 

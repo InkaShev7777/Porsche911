@@ -4,19 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#090909"
+    android:backgroundTint="#272626"
     tools:context=".MainActivity">
 
-    <ListView
-        android:id="@+id/porschelist"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#090909"
-        android:backgroundTint="#272626"
-        android:divider="@color/cardview_dark_background"
-        android:dividerHeight="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="410dp"
+            android:layout_height="65dp"
+            android:background="#090909"
+            android:backgroundTint="#272626"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="311dp"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/searchtext"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Search"
+                    android:textColor="#FFFEFE" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/searchbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#4C798D"
+                android:text="Search" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/porschelist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#090909"
+            android:backgroundTint="#272626"
+            android:divider="@color/cardview_dark_background"
+            android:dividerHeight="2dp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

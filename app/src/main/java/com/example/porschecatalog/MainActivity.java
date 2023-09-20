@@ -16,10 +16,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -50,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> porsheList;
     private ArrayList<String> images;
     private ArrayList<String> AllInfoPorsche;
+    private TextInputEditText searchText;
+    private Button searchBTN;
+    private boolean isSearch = false;
     PorscheAdapter porscheAdapter;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -78,7 +83,23 @@ public class MainActivity extends AppCompatActivity {
         porscheAdapter = new PorscheAdapter(this,porsheList,images);
         porscheListView.setAdapter(porscheAdapter);
 
-        new HttpGetRequest().execute("https://10.0.2.2:7067/porsche/GetPorsche","GET");
+        this.searchText = (TextInputEditText)findViewById(R.id.searchtext);
+        this.searchBTN = (Button)findViewById(R.id.searchbutton);
+        this.searchBTN.setOnClickListener(v->{
+            String text = searchText.getText().toString();
+            if(text.length() > 0){
+                isSearch = true;
+                new HttpGetRequest().execute("https://10.0.2.2:7067/porsche/SearchPorsche?text="+text,"GET");
+            }
+            else {
+                isSearch = false;
+                new HttpGetRequest().execute("https://10.0.2.2:7067/porsche/GetPorsche","GET");
+            }
+        });
+        if(this.isSearch == false){
+            new HttpGetRequest().execute("https://10.0.2.2:7067/porsche/GetPorsche","GET");
+        }
+
     }
     private class HttpGetRequest extends AsyncTask<String, Void, String> {
         @Override
