@@ -23,6 +23,10 @@ namespace PorscheApi.Managers
 		{
 			return this.porscheList.Where(x => x.Id.Equals(id)).ToList();
 		}
+		public List<Porsche> SearchPorsche(string text_search)
+		{
+			return this.porscheList.Where(x => x.Model.ToLower().Contains(text_search.ToLower())).ToList();
+		}
 	}
 }
 

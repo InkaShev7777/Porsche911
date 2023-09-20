@@ -25,6 +25,15 @@ namespace PorscheApi.Controllers
 		{
 			return this.manager.GetPorschesByID(id);
 		}
+		[HttpGet]
+		[Route("SearchPorsche")]
+		public List<Porsche> SearchPorsche(string text)
+		{
+			return this.manager.SearchPorsche(text);
+		}
+		//
+		//	Add IResult !
+		//
     }
 }
 

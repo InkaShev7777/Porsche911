@@ -14,4 +14,21 @@ public partial class Porsche
     public string Description { get; set; } = null!;
 
     public string Image { get; set; } = null!;
+
+    public string GetModel()
+    {
+        return this.Model;
+    }
+    public string GetYears()
+    {
+        return this.Years;
+    }
+    public string GetDescription()
+    {
+        return this.Description;
+    }
+    public string GetImage()
+    {
+        return this.Image;
+    }
 }
